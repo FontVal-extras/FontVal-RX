@@ -30,6 +30,8 @@ using System.Runtime.InteropServices;
 
 using SharpFont;
 
+using TrueType = Avalon.Media.Text.TrueType;
+
 namespace OTFontFile.Rasterizer
 {
     public class RasterInterf
@@ -37,6 +39,7 @@ namespace OTFontFile.Rasterizer
         private static RasterInterf _Rasterizer;
         private static Library _lib;
         private static Face _face;
+        private static TrueType.RasterInterf m_Rasterizer;
         private DevMetricsData m_DevMetricsData;
         private bool m_UserCancelledCalcDevMetrics = false;
 
@@ -46,6 +49,7 @@ namespace OTFontFile.Rasterizer
 
         private RasterInterf ()
         {
+                m_Rasterizer = new TrueType.RasterInterf();
             _lib = new Library();
             //Console.WriteLine("FreeType version: " + _lib.Version);
         }
@@ -81,7 +85,18 @@ namespace OTFontFile.Rasterizer
                              UpdateProgressDelegate pUpdateProgressDelegate,
                              int numGlyphs)
         {
-            throw new NotImplementedException("UnImplemented OTFontFile.Rasterizer:RastTest");
+            TrueType.RasterInterf.RastTestErrorDelegate m_pRastTestErrorDelegate =
+                new TrueType.RasterInterf.RastTestErrorDelegate(pRastTestErrorDelegate);
+            TrueType.RasterInterf.UpdateProgressDelegate m_pUpdateProgressDelegate =
+                new TrueType.RasterInterf.UpdateProgressDelegate(pUpdateProgressDelegate);
+            bool ms = m_Rasterizer.RastTest(resX, resY, arrPointSizes,
+                                         stretchX, stretchY,
+                                         rotation, skew,
+                                         matrix,
+                                         m_pRastTestErrorDelegate,
+                                         m_pUpdateProgressDelegate
+                                         );
+            return ms;
         }
 
         public DevMetricsData CalcDevMetrics (int Huge_calcHDMX, int Huge_calcLTSH, int Huge_calcVDMX,
@@ -206,21 +221,27 @@ namespace OTFontFile.Rasterizer
             _face = _lib.NewFace(fontFileStream.Name, (int)faceIndex);
             m_UserCancelledCalcDevMetrics = false;
 
+                m_Rasterizer.RasterNewSfnt (fontFileStream, faceIndex);
+
             return 1; //Not used by caller
         }
 
         public void CancelRastTest ()
         {
+            m_Rasterizer.CancelRastTest ();
         }
 
         public void CancelCalcDevMetrics ()
         {
             m_UserCancelledCalcDevMetrics = true;
+            m_Rasterizer.CancelCalcDevMetrics ();
         }
 
         public int GetRastErrorCount ()
         {
-            return 0;
+            int result = 0;
+                result += m_Rasterizer.GetRastErrorCount ();
+            return result;
         }
 
         public class DevMetricsData
