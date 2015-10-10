@@ -58,7 +58,7 @@ MAIN_EXE=FontVal FontValidator DSIGInfo SVGInfo CFFInfo
 MCS=mcs -debug- -optimize+
 
 ifeq "$(BUILD)" ".net2"
-EXTRA_DEV_OPTS=/nostdlib /platform:AnyCPU /reference:/usr/lib/mono/2.0/System.dll \
+EXTRA_DEV_OPTS=/nostdlib /platform:x86 /reference:/usr/lib/mono/2.0/System.dll \
 /reference:/usr/lib/mono/2.0/mscorlib.dll \
 -lib:/usr/lib/mono/2.0
 else
