@@ -44,19 +44,8 @@ namespace OTFontFile.Rasterizer
 
         public delegate void UpdateProgressDelegate (string s);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern bool SetDllDirectory(string path);
-
         private RasterInterf ()
         {
-            PlatformID pid = Environment.OSVersion.Platform;
-            if ( pid != PlatformID.Unix && pid != PlatformID.MacOSX )
-            {
-                string path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                path = Path.Combine(path, IntPtr.Size == 8 ? "Win64" : "Win32");
-                if (!SetDllDirectory(path))
-                    throw new System.ComponentModel.Win32Exception();
-            }
             _lib = new Library();
             //Console.WriteLine("FreeType version: " + _lib.Version);
         }
