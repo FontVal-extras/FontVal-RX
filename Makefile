@@ -93,13 +93,13 @@ gendoc: GenerateFValData/bin/Debug/GenerateFValData.exe
 
 bin/Compat.dll:
 	( cd Compat     && \
-        $(MCS) -target:library $(EXTRA_DEV_OPTS) -lib:../bin/ -r:SharpFont -r:System.Windows.Forms -out:../$@ *.cs )
+        $(MCS) -target:library $(EXTRA_DEV_OPTS) -lib:../bin/ -r:truetype -r:SharpFont -r:System.Windows.Forms -out:../$@ *.cs )
 
 # Not a real target
 bin/Compat.2nd.dll:
 	( cd Compat.2nd     && \
         $(MCS) -target:library $(EXTRA_DEV_OPTS) -lib:../bin/ \
-        -r:SharpFont -r:System.Windows.Forms \
+        -r:truetype -r:SharpFont -r:System.Windows.Forms \
         -r:System.Security \
         -r:OTFontFile \
         -out:../bin/Compat.dll *.cs \
