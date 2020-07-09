@@ -7,3 +7,6 @@
 [submodule "freetype-py"]
 	path = freetype-py
 	url = git://github.com/HinTak/freetype-py.git
+[submodule "FontVal-MacGUI"]
+	path = MacUI
+	url = git://github.com/HinTak/FontVal-MacGUI.git
