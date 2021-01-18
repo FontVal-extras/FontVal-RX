@@ -61,19 +61,19 @@ namespace OTFontFile
 
         public DateTime GetCreatedDateTime()
         {
-            DateTime epoch = new DateTime(1904, 1, 1);
+            DateTime epoch = new DateTime(1904, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return epoch.AddSeconds(created);
         }
 
         public DateTime GetModifiedDateTime()
         {
-            DateTime epoch = new DateTime(1904, 1, 1);
+            DateTime epoch = new DateTime(1904, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return epoch.AddSeconds(modified);
         }
 
         public long DateTimeToSecondsSince1904(DateTime dt)
         {
-            DateTime epoch = new DateTime(1904, 1, 1);
+            DateTime epoch = new DateTime(1904, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             TimeSpan ts = dt.Subtract(epoch);
             return (long)ts.TotalSeconds;
         }

@@ -385,7 +385,7 @@ namespace OTFontFile
                     Table_head.head_cache headCache = (Table_head.head_cache)headTable.GetCache();
 
                     // set the 'modified' field to the current date and time
-                    DateTime dt = DateTime.Now;
+                    DateTime dt = DateTime.UtcNow;
                     headCache.modified = headTable.DateTimeToSecondsSince1904(dt);
 
                     // generate a new table and replace the head table in the list of ordered tables
@@ -532,7 +532,7 @@ namespace OTFontFile
                 Table_head.head_cache headCache = (Table_head.head_cache)headTable.GetCache();
 
                 // set the 'modified' field to the current date
-                DateTime dt = DateTime.Now;
+                DateTime dt = DateTime.UtcNow;
                 headCache.modified = headTable.DateTimeToSecondsSince1904(dt);
 
                 // generate a new table and add it to the array
