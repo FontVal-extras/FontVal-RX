@@ -273,7 +273,7 @@ namespace OTFontFileVal
             
             if (v.PerformTest(T.head_Dates))
             {
-                DateTime dtBeforeTrueType = new DateTime(1985, 1, 1);
+                DateTime dtBeforeTrueType = new DateTime(1985, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
                 if ((created >> 32) == 0)
                 {
@@ -283,7 +283,7 @@ namespace OTFontFileVal
                     {
                         v.Warning(T.head_Dates, W.head_W_created_0, m_tag);
                     }
-                    else if (dtCreated < dtBeforeTrueType || dtCreated > DateTime.Now)
+                    else if (dtCreated < dtBeforeTrueType || dtCreated > DateTime.UtcNow)
                     {
                         v.Warning(T.head_Dates, W.head_W_created_unlikely, m_tag, sDetails);
                     }
@@ -307,7 +307,7 @@ namespace OTFontFileVal
                     {
                         v.Warning(T.head_Dates, W.head_W_modified_0, m_tag);
                     }
-                    else if (dtModified < dtBeforeTrueType || dtModified > DateTime.Now)
+                    else if (dtModified < dtBeforeTrueType || dtModified > DateTime.UtcNow)
                     {
                         v.Warning(T.head_Dates, W.head_W_modified_unlikely, m_tag, sDetails);
                     }

@@ -293,7 +293,7 @@ namespace OTFontFile
         public DateTime GetFontModifiedDate()
         {
             // default to Jan 1, 1904 if unavailable
-            DateTime dt = new DateTime(1904, 1, 1);
+            DateTime dt = new DateTime(1904, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             try
             {

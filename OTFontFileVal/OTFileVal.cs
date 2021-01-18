@@ -219,7 +219,7 @@ namespace OTFontFileVal
 
         public bool Validate()
         {
-            long StartTicks = DateTime.Now.Ticks;
+            long StartTicks = DateTime.UtcNow.Ticks;
 			bool bRet = true;
 
             m_Validator.OnFileValidationEvent(this, true);
@@ -248,7 +248,7 @@ namespace OTFontFileVal
             }
 
             // build the elapsed time string
-            int nSeconds = (int)((DateTime.Now.Ticks-StartTicks)/(double)10000000);
+            int nSeconds = (int)((DateTime.UtcNow.Ticks-StartTicks)/(double)10000000);
             int nHours = nSeconds / 3600;
             nSeconds = nSeconds - nHours*3600;
             int nMins = nSeconds / 60;
