@@ -3600,10 +3600,10 @@ Correct this data using a table editing tool.&lt;BR&gt;For examples of how to us
     atom="GDEF_E_Version"
     linkTitle="GDEF table specification"
     specLink="http://www.microsoft.com/typography/otspec/gdef.htm"
-    shortDesc="The version number is neither 0x00010000 nor 0x0001002"
+    shortDesc="The version number is not 0x00010000, 0x00010002 nor 0x00010003"
     fwLinkID="10347"
     tableName="GDEF">
-    <problem>Versions 0x00010000 and 0x0001002 are currently the only defined versions of the GDEF table.</problem>
+    <problem>Versions 0x00010000, 0x00010002 and 0x00010003 are currently the only defined versions of the GDEF table.</problem>
 </item>
 
 <item
@@ -8104,7 +8104,7 @@ once at the same location, one per reference point. This is seen with IP and MSI
     atom="GDEF_P_Version"
     linkTitle="WARNING: field missing"
     specLink="WARNING: field missing"
-    shortDesc="The version numbers 0x00010000 or 0x0001002 are okay"
+    shortDesc="The version numbers 0x00010000, 0x00010002 or 0x00010003 are okay"
     fwLinkID="0"
     tableName="WARNING: field missing">
     <problem/>
