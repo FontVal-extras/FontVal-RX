@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+#if USING_COMPAT_OTFontFile_Rasterizer
 using TrueType = Avalon.Media.Text.TrueType;
 
 namespace OTFontFile.Rasterizer
@@ -174,3 +175,4 @@ namespace OTFontFile.Rasterizer
         }
     }
 }
+#endif
