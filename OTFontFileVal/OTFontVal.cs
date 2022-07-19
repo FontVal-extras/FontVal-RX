@@ -247,7 +247,7 @@ namespace OTFontFileVal
                             x, y, pointsizes,
                             rtt.stretchX, rtt.stretchY, rtt.rotation, rtt.skew, rtt.matrix, 
                             true, false, false, 0,
-                            rted, upg, numGlyphs);
+                            rted, upg);
                         if (ri.GetRastErrorCount() == 0)
                         {
                             v.Pass(T.T_NULL, P._rast_P_rasterization, null);
@@ -305,7 +305,7 @@ namespace OTFontFileVal
                             x, y, pointsizes,
                             rtt.stretchX, rtt.stretchY, rtt.rotation, rtt.skew, rtt.matrix, 
                             false, true, false, 0,
-                            rted, upg, numGlyphs);
+                            rted, upg);
                         if (ri.GetRastErrorCount() == 0)
                         {
                             v.Pass(T.T_NULL, P._rast_P_rasterization, null);
@@ -366,7 +366,7 @@ namespace OTFontFileVal
                             x, y, pointsizes,
                             rtt.stretchX, rtt.stretchY, rtt.rotation, rtt.skew, rtt.matrix, 
                             false, false, true, CTFlags,
-                            rted, upg, numGlyphs);
+                            rted, upg);
                         if (ri.GetRastErrorCount() == 0)
                         {
                             v.Pass(T.T_NULL, P._rast_P_rasterization, null);
