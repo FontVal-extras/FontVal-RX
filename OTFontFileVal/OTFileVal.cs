@@ -28,6 +28,7 @@ namespace OTFontFileVal
 
             m_TableManager = new TableManagerVal(this);
             m_Validator = v;
+            m_Rasterizer = null;
         }
 
         /*****************
@@ -294,7 +295,7 @@ namespace OTFontFileVal
         public void CancelValidation()
         {
             // tell the rasterizer to stop
-            RasterInterf l_Rasterizer = RasterInterf.getInstance();
+            RasterInterf l_Rasterizer = GetRasterizer();
             l_Rasterizer.CancelCalcDevMetrics();
             l_Rasterizer.CancelRastTest();
         }
@@ -340,7 +341,9 @@ namespace OTFontFileVal
 
         public    RasterInterf GetRasterizer()
         {
-            return RasterInterf.getInstance();
+            if (m_Rasterizer == null)
+                m_Rasterizer = new RasterInterf();
+            return m_Rasterizer;
         }
 
 
@@ -376,6 +379,7 @@ namespace OTFontFileVal
 
 
         Validator m_Validator;
+        RasterInterf m_Rasterizer;
     }
 
 }
