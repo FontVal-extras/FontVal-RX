@@ -109,110 +109,15 @@ namespace OTFontFile.Rasterizer
             if ( Huge_calcHDMX == 0 && Huge_calcLTSH == 0 && Huge_calcVDMX == 0 )
                 return null;
 
-            this.m_DevMetricsData = new DevMetricsData();
-
-            if ( Huge_calcHDMX != 0 )
-            {
-                List<uint> requestedPixelSize = new List<uint>();
-                for( ushort i = 0; i <= maxHdmxPointSize ; i++ ) {
-                    if ( phdmxPointSizes[i] == 1 ) {
-                        requestedPixelSize.Add((uint)i);
-                    }
-                }
-
-                this.m_DevMetricsData.hdmxData = new HDMX();
-                this.m_DevMetricsData.hdmxData.Records = new HDMX_DeviceRecord[requestedPixelSize.Count];
-
-                for (int i = 0; i < requestedPixelSize.Count; i++) {
-                    if ( m_UserCancelledTest ) return null;
-                    trySetPixelSizes(0, requestedPixelSize[i]);
-                    this.m_DevMetricsData.hdmxData.Records[i] = new HDMX_DeviceRecord();
-                    this.m_DevMetricsData.hdmxData.Records[i].Widths = new byte[_face.GlyphCount];
-                    for (uint glyphIndex = 0; glyphIndex < _face.GlyphCount; glyphIndex++)
-                    {
-                        _face.LoadGlyph(glyphIndex, LoadFlags.Default|LoadFlags.ComputeMetrics, LoadTarget.Normal);
-                        this.m_DevMetricsData.hdmxData.Records[i].Widths[glyphIndex] =  (byte) _face.Glyph.Advance.X.Round();
-                    }
-                }
-            }
-
-            if ( Huge_calcLTSH != 0 )
-            {
-                this.m_DevMetricsData.ltshData = new LTSH();
-                this.m_DevMetricsData.ltshData.yPels = new byte[numGlyphs];
-
-                for (uint i = 0; i < this.m_DevMetricsData.ltshData.yPels.Length; i++) {
-                    this.m_DevMetricsData.ltshData.yPels[i] = 1;
-                }
-                int remaining = numGlyphs;
-                for (uint j = 254; j > 0; j--) {
-                    if ( remaining == 0 )
-                        break;
-                    if ( m_UserCancelledTest ) return null;
-                    trySetPixelSizes(0, j);
-                    for (uint i = 0; i < this.m_DevMetricsData.ltshData.yPels.Length; i++) {
-                        if ( this.m_DevMetricsData.ltshData.yPels[i] > 1 )
-                            continue;
-                        _face.LoadGlyph(i, LoadFlags.Default|LoadFlags.ComputeMetrics, LoadTarget.Normal);
-                        int Advance_X = _face.Glyph.Advance.X.Round() ;
-                        int LinearHorizontalAdvance = _face.Glyph.LinearHorizontalAdvance.Round() ;
-                        if ( Advance_X == LinearHorizontalAdvance )
-                            continue;
-                        int difference = Advance_X - LinearHorizontalAdvance ;
-                        if ( difference < 0 )
-                            difference = - difference;
-                        if ( ( j >= 50 ) && (difference * 50 <= LinearHorizontalAdvance) ) // compat "<="
-                            continue;
-                        // this is off-spec but happens to agree better...
-                        difference = (_face.Glyph.Advance.X.Value << 10) - _face.Glyph.LinearHorizontalAdvance.Value;
-                        if ( difference < 0 )
-                            difference = - difference;
-                        if ( ( j >= 50 ) && (difference * 50 <= _face.Glyph.LinearHorizontalAdvance.Value) ) // compat "<=="
-                            continue;
-                        // off-spec-ness ends.
-                        this.m_DevMetricsData.ltshData.yPels[i] = (byte) ( j + 1 );
-                        remaining--;
-                    }
-                }
-            }
-
-            if ( Huge_calcVDMX != 0 )
-            {
-                this.m_DevMetricsData.vdmxData = new VDMX();
-                this.m_DevMetricsData.vdmxData.groups = new VDMX_Group[cVDMXResolutions];
-                for ( int i = 0 ; i < cVDMXResolutions ; i++ )
-                {
-                    this.m_DevMetricsData.vdmxData.groups[i] = new VDMX_Group();
-                    this.m_DevMetricsData.vdmxData.groups[i].entry = new VDMX_Group_vTable[uchPixelHeightRangeEnd
-                                                                                           - uchPixelHeightRangeStart + 1];
-                    for ( ushort j = uchPixelHeightRangeStart ; j <= uchPixelHeightRangeEnd ; j++ )
-                    {
-                        int k = j - uchPixelHeightRangeStart;
-                        this.m_DevMetricsData.vdmxData.groups[i].entry[k] = new VDMX_Group_vTable() ;
-                        this.m_DevMetricsData.vdmxData.groups[i].entry[k].yPelHeight = j ;
-
-                        uint x_pixelSize = (uint) ( (pVDMXyResolution[i] == 0) ?
-                                                    0 : (pVDMXxResolution[i] * j + pVDMXyResolution[i]/2 ) / pVDMXyResolution[i] );
-                        if ( m_UserCancelledTest ) return null;
-                        trySetPixelSizes(x_pixelSize, j);
-                        short yMax = 0;
-                        short yMin = 0;
-                        BBox box;
-                        Glyph glyph;
-                        for (uint ig = 0; ig < numGlyphs; ig++) {
-                            _face.LoadGlyph(ig, LoadFlags.Default|LoadFlags.ComputeMetrics, LoadTarget.Normal);
-                            glyph = _face.Glyph.GetGlyph();
-                            box = glyph.GetCBox(GlyphBBoxMode.Truncate);
-                            if (box.Top > yMax) yMax = (short) box.Top;
-                            if (box.Bottom < yMin) yMin = (short) box.Bottom;
-                            glyph.Dispose();
-                        }
-                        this.m_DevMetricsData.vdmxData.groups[i].entry[k].yMax = yMax ;
-                        this.m_DevMetricsData.vdmxData.groups[i].entry[k].yMin = yMin ;
-                    }
-                }
-            }
-
+            TrueType.RasterInterf.UpdateProgressDelegate m_pUpdateProgressDelegate =
+                new TrueType.RasterInterf.UpdateProgressDelegate(pUpdateProgressDelegate);
+            m_DevMetricsData = (DevMetricsData) m_Rasterizer.CalcDevMetrics(Huge_calcHDMX, Huge_calcLTSH, Huge_calcVDMX,
+                                                                            numGlyphs,
+                                                                            phdmxPointSizes, maxHdmxPointSize,
+                                                                            uchPixelHeightRangeStart, uchPixelHeightRangeEnd,
+                                                                            pVDMXxResolution, pVDMXyResolution,
+                                                                            cVDMXResolutions, m_pUpdateProgressDelegate
+                                                                            );
             return m_DevMetricsData;
         }
 
@@ -244,11 +149,11 @@ namespace OTFontFile.Rasterizer
             return result;
         }
 
-        public class DevMetricsData
+        public class DevMetricsData : TrueType.RasterInterf.DevMetricsData
         {
-            public HDMX hdmxData;
-            public LTSH ltshData;
-            public VDMX vdmxData;
+            //public HDMX hdmxData;
+            //public LTSH ltshData;
+            //public VDMX vdmxData;
         }
 
         // These structures largely have their OTSPEC meanings,

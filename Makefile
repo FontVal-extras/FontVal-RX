@@ -146,7 +146,7 @@ GenerateFValData/bin/Debug/GenerateFValData.exe: GenerateFValData/ValTests.cs
 bin/OTFontFileVal.dll:
 	( cd OTFontFileVal && \
         $(MCS) -lib:../bin/ $(EXTRA_DEV_OPTS) \
-            -r:Compat -r:System.Windows.Forms \
+            -r:Compat -r:truetype -r:System.Windows.Forms \
             -r:OTFontFile -r:ValCommon -r:Glyph -r:GMath \
 	    -resource:OTFontFileVal.ValStrings.resources \
             -target:library -out:../$@ *.cs )
