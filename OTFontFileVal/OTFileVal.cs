@@ -342,7 +342,7 @@ namespace OTFontFileVal
         public    RasterInterf GetRasterizer()
         {
             if (m_Rasterizer == null)
-                m_Rasterizer = new RasterInterf();
+                m_Rasterizer = new RasterInterf(); //public in Fri Mar 13 18:35:06 2009 version
             return m_Rasterizer;
         }
 
