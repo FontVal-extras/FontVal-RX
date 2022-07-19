@@ -28,8 +28,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-using SharpFont;
-
 using TrueType = Avalon.Media.Text.TrueType;
 
 namespace OTFontFile.Rasterizer
@@ -37,8 +35,6 @@ namespace OTFontFile.Rasterizer
     public class RasterInterf
     {
         private static RasterInterf _Rasterizer;
-        private static Library _lib;
-        private static Face _face;
         private static TrueType.RasterInterf m_Rasterizer;
         private DevMetricsData m_DevMetricsData;
         private bool m_UserCancelledTest = false;
@@ -50,14 +46,12 @@ namespace OTFontFile.Rasterizer
         private RasterInterf ()
         {
                 m_Rasterizer = new TrueType.RasterInterf();
-            _lib = new Library();
-            //Console.WriteLine("FreeType version: " + _lib.Version);
         }
 
         public Version FTVersion
         {
             get {
-                return _lib.Version;
+                return new Version(6,6,6); // Large value for ComputeMetrics
             }
         }
 
@@ -66,11 +60,6 @@ namespace OTFontFile.Rasterizer
             if (_Rasterizer == null)
             {
                 _Rasterizer = new RasterInterf ();
-            }
-            if ( _face != null )
-            {
-                _face.Dispose();
-                _face = null;
             }
 
             return _Rasterizer;
@@ -123,7 +112,6 @@ namespace OTFontFile.Rasterizer
 
         public ushort RasterNewSfnt (FileStream fontFileStream, uint faceIndex)
         {
-            _face = _lib.NewFace(fontFileStream.Name, (int)faceIndex);
             m_UserCancelledTest = false;
 
                 m_Rasterizer.RasterNewSfnt (fontFileStream, faceIndex);
@@ -190,20 +178,6 @@ namespace OTFontFile.Rasterizer
             public ushort yPelHeight;
             public short yMax;
             public short yMin;
-        }
-
-        private void trySetPixelSizes(uint x_requestedPixelSize, uint y_requestPixelSize)
-        {
-            try{
-                _face.SetPixelSizes(x_requestedPixelSize, y_requestPixelSize);
-            } catch (FreeTypeException e) {
-                //Console.WriteLine("SetPixelSizes caught " + e + " at size " + x_requestedPixelSize + ", " + y_requestPixelSize);
-                if (e.Error == Error.InvalidPixelSize)
-                    throw new ArgumentException("FreeType invalid pixel size error: Likely setting unsupported size "
-                                                + x_requestedPixelSize + ", " + y_requestPixelSize + " for fixed-size font.");
-                else
-                    throw;
-            }
         }
     }
 }
