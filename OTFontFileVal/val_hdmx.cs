@@ -238,7 +238,7 @@ namespace OTFontFileVal
                     RasterInterf.DevMetricsData dmd = null;
                     try
                     {
-                        Version ver = fontOwner.GetFile().GetRasterizer().FTVersion;
+                        Version ver = new Version(6,6,6);
 
                         if ( ver.CompareTo(new Version(2,6,1)) < 0 )
                             v.Warning(T.hdmx_Widths, W.hdmx_W_Need_Newer_FreeType, m_tag,

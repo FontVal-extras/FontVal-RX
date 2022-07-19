@@ -113,7 +113,7 @@ namespace OTFontFileVal
 
                 try
                 {
-                    Version ver = fontOwner.GetFile().GetRasterizer().FTVersion;
+                    Version ver = new Version(6,6,6);
 
                     if ( ver.CompareTo(new Version(2,6,1)) < 0 )
                         v.Warning(T.VDMX_CompareToCalcData, W.VDMX_W_Need_Newer_FreeType, m_tag,

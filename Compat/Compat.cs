@@ -48,13 +48,6 @@ namespace OTFontFile.Rasterizer
                 m_Rasterizer = new TrueType.RasterInterf();
         }
 
-        public Version FTVersion
-        {
-            get {
-                return new Version(6,6,6); // Large value for ComputeMetrics
-            }
-        }
-
         static public RasterInterf getInstance()
         {
             if (_Rasterizer == null)
