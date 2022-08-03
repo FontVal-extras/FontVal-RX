@@ -235,7 +235,7 @@ namespace OTFontFileVal
                 if (bSizeOk && bLengthOk && bNumDeviceRecordsOk)
                 {
                     bool bWidthsOk = true;
-                    RasterInterf.DevMetricsData dmd = null;
+                    RasterInterf2.DevMetricsData dmd = null;
                     try
                     {
                         Version ver = new Version(6,6,6);

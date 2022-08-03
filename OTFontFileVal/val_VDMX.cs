@@ -109,7 +109,7 @@ namespace OTFontFileVal
                 bool bDataOk = true;
                 bool needtol = false;
 
-                RasterInterf.DevMetricsData dmd = null;
+                RasterInterf2.DevMetricsData dmd = null;
 
                 try
                 {

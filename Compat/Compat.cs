@@ -30,11 +30,13 @@ using System.Runtime.InteropServices;
 
 #if USING_COMPAT_OTFontFile_Rasterizer
 using TrueType = Avalon.Media.Text.TrueType;
+#endif
 
 namespace OTFontFile.Rasterizer
 {
-    public class RasterInterf
+    public class RasterInterf2 : RasterInterf
     {
+#if USING_COMPAT_OTFontFile_Rasterizer
         private static RasterInterf _Rasterizer;
         private static TrueType.RasterInterf m_Rasterizer;
         private DevMetricsData m_DevMetricsData;
@@ -173,6 +175,6 @@ namespace OTFontFile.Rasterizer
             public short yMax;
             public short yMin;
         }
+#endif
     }
 }
-#endif

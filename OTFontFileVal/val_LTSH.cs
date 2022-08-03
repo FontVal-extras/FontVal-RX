@@ -81,7 +81,7 @@ namespace OTFontFileVal
             if (v.PerformTest(T.LTSH_yPels))
             {
                 bool bYPelsOk = true;
-                RasterInterf.DevMetricsData dmd = null;
+                RasterInterf2.DevMetricsData dmd = null;
                 try
                 {
                     Version ver = new Version(6,6,6);

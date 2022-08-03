@@ -232,13 +232,13 @@ namespace OTFontFileVal
                     try
                     {
                         // fetch the rasterizer object and initialize it with this font
-                        RasterInterf ri = GetFile().GetRasterizer();
+                        RasterInterf2 ri = GetFile().GetRasterizer();
                         ri.RasterNewSfnt(GetFile().GetFileStream(), GetFontIndexInFile());
 
                         
                         // call the rasterizer
-                        RasterInterf.UpdateProgressDelegate upg = new RasterInterf.UpdateProgressDelegate(v.OnTableProgress);
-                        RasterInterf.RastTestErrorDelegate rted = new RasterInterf.RastTestErrorDelegate(v.OnRastTestError);
+                        RasterInterf2.UpdateProgressDelegate upg = new RasterInterf2.UpdateProgressDelegate(v.OnTableProgress);
+                        RasterInterf2.RastTestErrorDelegate rted = new RasterInterf2.RastTestErrorDelegate(v.OnRastTestError);
                         int x = v.GetRastTestXRes();
                         int y = v.GetRastTestYRes();
                         int [] pointsizes = v.GetRastTestPointSizes();
@@ -290,13 +290,13 @@ namespace OTFontFileVal
                     try
                     {
                         // fetch the rasterizer object and initialize it with this font
-                        RasterInterf ri = GetFile().GetRasterizer();
+                        RasterInterf2 ri = GetFile().GetRasterizer();
                         ri.RasterNewSfnt(GetFile().GetFileStream(), GetFontIndexInFile());
 
                         
                         // call the rasterizer
-                        RasterInterf.UpdateProgressDelegate upg = new RasterInterf.UpdateProgressDelegate(v.OnTableProgress);
-                        RasterInterf.RastTestErrorDelegate rted = new RasterInterf.RastTestErrorDelegate(v.OnRastTestError);
+                        RasterInterf2.UpdateProgressDelegate upg = new RasterInterf2.UpdateProgressDelegate(v.OnTableProgress);
+                        RasterInterf2.RastTestErrorDelegate rted = new RasterInterf2.RastTestErrorDelegate(v.OnRastTestError);
                         int x = v.GetRastTestXRes();
                         int y = v.GetRastTestYRes();
                         int [] pointsizes = v.GetRastTestPointSizes();
@@ -351,13 +351,13 @@ namespace OTFontFileVal
                         uint CTFlags = v.GetCleartypeFlags();
 
                         // fetch the rasterizer object and initialize it with this font
-                        RasterInterf ri = GetFile().GetRasterizer();
+                        RasterInterf2 ri = GetFile().GetRasterizer();
                         ri.RasterNewSfnt(GetFile().GetFileStream(), GetFontIndexInFile());
 
                         
                         // call the rasterizer
-                        RasterInterf.UpdateProgressDelegate upg = new RasterInterf.UpdateProgressDelegate(v.OnTableProgress);
-                        RasterInterf.RastTestErrorDelegate rted = new RasterInterf.RastTestErrorDelegate(v.OnRastTestError);
+                        RasterInterf2.UpdateProgressDelegate upg = new RasterInterf2.UpdateProgressDelegate(v.OnTableProgress);
+                        RasterInterf2.RastTestErrorDelegate rted = new RasterInterf2.RastTestErrorDelegate(v.OnRastTestError);
                         int x = v.GetRastTestXRes();
                         int y = v.GetRastTestYRes();
                         int [] pointsizes = v.GetRastTestPointSizes();
@@ -417,7 +417,7 @@ namespace OTFontFileVal
             return (OTFileVal)m_File;
         }
 
-        public RasterInterf.DevMetricsData GetCalculatedDevMetrics()
+        public RasterInterf2.DevMetricsData GetCalculatedDevMetrics()
         {
             if (m_DevMetricsData != null)
             {
@@ -514,14 +514,14 @@ namespace OTFontFileVal
             if (TestFontRasterization() > 0)
             {
                 // fetch the rasterizer object and initialize it with this font
-                RasterInterf ri = GetFile().GetRasterizer();
+                RasterInterf2 ri = GetFile().GetRasterizer();
                 ri.RasterNewSfnt(GetFile().GetFileStream(), GetFontIndexInFile());
 
                 // calculate the cached data
                 try
                 {
                     Validator v = GetFile().GetValidator();
-                    RasterInterf.UpdateProgressDelegate upg = new RasterInterf.UpdateProgressDelegate(v.OnTableProgress);
+                    RasterInterf2.UpdateProgressDelegate upg = new RasterInterf2.UpdateProgressDelegate(v.OnTableProgress);
                     m_DevMetricsData = ri.CalcDevMetrics(bCalc_hdmx, bCalc_LTSH, bCalc_VDMX,
                         numGlyphs,
                         hdmxPointSizes, maxHdmxPointSize,
@@ -1254,7 +1254,7 @@ namespace OTFontFileVal
          * member data
          */
 
-        RasterInterf.DevMetricsData m_DevMetricsData;
+        RasterInterf2.DevMetricsData m_DevMetricsData;
         String m_sDevMetricsDataError;
     }
 }
