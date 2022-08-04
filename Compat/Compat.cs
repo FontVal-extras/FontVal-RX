@@ -47,6 +47,22 @@ namespace OTFontFile.Rasterizer
         {
             return true;
         }
+        /* shadowing RasterInterf.CalcDevMetrics */
+        public new DevMetricsData CalcDevMetrics (int Huge_calcHDMX, int Huge_calcLTSH, int Huge_calcVDMX,
+                                                  ushort numGlyphs,
+                                                  byte[] phdmxPointSizes, ushort maxHdmxPointSize,
+                                                  byte uchPixelHeightRangeStart, byte uchPixelHeightRangeEnd,
+                                                  ushort[] pVDMXxResolution, ushort[] pVDMXyResolution,
+                                                  ushort cVDMXResolutions, UpdateProgressDelegate pUpdateProgressDelegate)
+        {
+            this.m_bCancelCalcDevMetrics = false;
+            DevMetricsData data = new DevMetricsData {
+                hdmxData = null,
+                ltshData = null,
+                vdmxData = null
+            };
+            return data;
+        }
 #if USING_COMPAT_OTFontFile_Rasterizer
         private static RasterInterf _Rasterizer;
         private static TrueType.RasterInterf m_Rasterizer;
