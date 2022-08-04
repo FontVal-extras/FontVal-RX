@@ -61,7 +61,7 @@ namespace OTFontFile.Rasterizer
                 ltshData = null,
                 vdmxData = null
             };
-            return data;
+            return null;
         }
 #if USING_COMPAT_OTFontFile_Rasterizer
         private static RasterInterf _Rasterizer;
