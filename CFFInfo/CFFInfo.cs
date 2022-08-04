@@ -35,8 +35,6 @@ namespace Compat
 
         static int Main( string[] args )
         {
-            verbose = 0;
-
             if (args.Length == 0) {
                 Console.WriteLine("CFFInfo [-v] [-v] [-v] fontfile");
                 return 0;
