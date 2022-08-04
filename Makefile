@@ -53,7 +53,7 @@ LIBRARIES_2=ValCommon GMath Glyph OTFontFileVal
 COMPAT_LIBRARIES=$(COMPAT_LIBRARIES_1)
 LIBRARIES=$(LIBRARIES_1) $(LIBRARIES_2)
 GENDOC_EXE=GenerateFValData
-MAIN_EXE=FontVal FontValidator DSIGInfo SVGInfo CFFInfo
+MAIN_EXE=FontVal FontValidator DSIGInfo SVGInfo CFFInfo RX
 
 MCS=mcs -debug- -optimize+
 
@@ -200,3 +200,9 @@ bin/CFFInfo.exe: CFFInfo/CFFInfo.cs
         -target:exe -out:../$@ *.cs \
         ../OTFontFileVal/Overlap.cs \
         ../OTFontFile/*.cs )
+
+bin/RX.exe: RX/RX.cs
+	( cd RX && \
+        $(MCS) -lib:../bin/ $(EXTRA_DEV_OPTS) \
+        -r:Compat -r:truetype -r:OTFontFile \
+        -target:exe -out:../$@ *.cs )
