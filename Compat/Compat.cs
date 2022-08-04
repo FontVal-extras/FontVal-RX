@@ -36,6 +36,17 @@ namespace OTFontFile.Rasterizer
 {
     public class RasterInterf2 : RasterInterf
     {
+        /* shadowing RasterInterf.RastTest */
+        public new bool RastTest (int resX, int resY, int[] arrPointSizes,
+                                  float stretchX, float stretchY,
+                                  float rotation, float skew,
+                                  float[,] matrix,
+                                  bool setBW, bool setGrayscale, bool setCleartype, uint CTFlags,
+                                  RastTestErrorDelegate pRastTestErrorDelegate,
+                                  UpdateProgressDelegate pUpdateProgressDelegate)
+        {
+            return true;
+        }
 #if USING_COMPAT_OTFontFile_Rasterizer
         private static RasterInterf _Rasterizer;
         private static TrueType.RasterInterf m_Rasterizer;
