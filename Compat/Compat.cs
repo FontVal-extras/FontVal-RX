@@ -63,6 +63,18 @@ namespace OTFontFile.Rasterizer
             };
             return null;
         }
+        /* shadowing RasterInterf.RenderSize() */
+        public new bool RenderSize(int resX, int resY, int nPointSize, float stretchX, float stretchY, float rotation, float skew, float[,] matrix)
+        {
+            return true;
+        }
+        /* shadowing RasterInterf.CheckPointDeltaAndRenderOutline() */
+        /*
+        public unsafe new bool CheckPointDeltaAndRenderOutline(void modopt(CallConvCdecl) *(fnt_LocalGraphicStateType*, byte*) traceFunc, ushort nGlyphID)
+        {
+            return true;
+        }
+        */
 #if USING_COMPAT_OTFontFile_Rasterizer
         private static RasterInterf _Rasterizer;
         private static TrueType.RasterInterf m_Rasterizer;
