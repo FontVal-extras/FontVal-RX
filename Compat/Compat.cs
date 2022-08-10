@@ -48,6 +48,7 @@ namespace OTFontFile.Rasterizer
             return true;
         }
         /* shadowing RasterInterf.CalcDevMetrics */
+        /*
         public new DevMetricsData CalcDevMetrics (int Huge_calcHDMX, int Huge_calcLTSH, int Huge_calcVDMX,
                                                   ushort numGlyphs,
                                                   byte[] phdmxPointSizes, ushort maxHdmxPointSize,
@@ -63,6 +64,7 @@ namespace OTFontFile.Rasterizer
             };
             return null;
         }
+        */
         /* shadowing RasterInterf.RenderSize() */
         public new bool RenderSize(int resX, int resY, int nPointSize, float stretchX, float stretchY, float rotation, float skew, float[,] matrix)
         {
