@@ -214,7 +214,7 @@ namespace OTFontFileVal
                 else
                 {
                     // Rasterization could not occur for various reasons.
-                    string s = "Unable to get calculated device metrics.";
+                    string s = "Unable to get calculated device metrics - " + fontOwner.GetDevMetricsDataError();
                     v.Error(T.VDMX_CompareToCalcData, E.VDMX_E_CalcData, m_tag, s);
                     bDataOk = false;
                     bRet = false;

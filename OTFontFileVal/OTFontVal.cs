@@ -530,7 +530,7 @@ namespace OTFontFileVal
                 }
                 catch (Exception e)
                 {
-                    m_sDevMetricsDataError = e.Message;
+                    m_sDevMetricsDataError = e.Message + e.StackTrace;
                 }
             }
 
